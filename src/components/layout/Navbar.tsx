@@ -37,13 +37,13 @@ const Navbar = () => {
 
                 <NavTab/>
 
-                <div className="navbar-end flex gap-3">
-                    <button className="btn"> Plan 
+                <div className="navbar-end flex gap-3 ">
+                    <button className="btn rounded-2xl"> Plan 
                         <span className='text-[#18240E] bg-[#C2F800] inline-flex items-center justify-center w-6 h-6 rounded-full  '
-                                        > (0) </span>
+                                        > 0 </span>
                     </button>
-                    <button className="btn"> Saved 
-                        <span> (0) </span>
+                    <button className="btn rounded-2xl "> Saved 
+                        <span className='border border-gray-400 inline-flex items-center justify-center w-6 h-6 rounded-full'> 0 </span>
                     </button>
                 </div>
                 

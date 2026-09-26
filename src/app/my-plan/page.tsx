@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import { FiArrowRight,  FiPlus, FiSearch } from "react-icons/fi";
+import { FiArrowRight, FiSearch } from "react-icons/fi";
 
 import { useWorkouts } from "@/contexts/WorkoutContext";
 import { useMemo, useState } from "react";
@@ -112,18 +112,19 @@ const MyPlanPage = () => {
             </p>
         </div>
 
-        <div className='grid grid-cols-3 p-7 bg-[#000f19] rounded-2xl'>
-            <div className='border-r border-r-zinc-700'>
+        {/* Responsive: metrics stack on phones and use three columns from tablet size. */}
+        <div className='mt-7 grid grid-cols-1 rounded-2xl bg-[#000f19] p-5 sm:grid-cols-3 sm:p-7'>
+            <div className='border-b border-zinc-700 pb-5 sm:border-b-0 sm:border-r sm:pb-0'>
                 <p>Exercises</p>
-                <span className='text-4xl font-bold'> {plan.length} </span>
+                <span className='text-3xl font-bold sm:text-4xl'> {plan.length} </span>
             </div>
-            <div className='border-r border-r-zinc-700 pl-5'>
+            <div className='border-b border-zinc-700 py-5 sm:border-b-0 sm:border-r sm:py-0 sm:pl-5'>
                 <p>Minutes</p>
-                <span className='text-4xl font-bold'> {totalMinutes} </span>
+                <span className='text-3xl font-bold sm:text-4xl'> {totalMinutes} </span>
             </div>
-            <div className='pl-5'>
+            <div className='pt-5 sm:pl-5 sm:pt-0'>
                 <p>Calories</p>
-                <span className='text-4xl font-bold '> {totalCalories} </span>
+                <span className='text-3xl font-bold sm:text-4xl'> {totalCalories} </span>
             </div>
         </div>
 
@@ -132,10 +133,11 @@ const MyPlanPage = () => {
     <div className="mt-7 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 
 {/* tab toggle */}
-        <div className="flex gap-2">
+        {/* Responsive: tabs divide the available phone width. */}
+        <div className="flex w-full gap-2 sm:w-auto">
           <button
             onClick={() => setActiveTab("plan")}
-            className={`rounded-full px-5 py-2 text-sm font-bold ${
+            className={`flex-1 rounded-full px-3 py-2 text-xs font-bold sm:flex-none sm:px-5 sm:text-sm ${
               activeTab === "plan"
                 ? "bg-lime-400 text-black"
                 : "bg-zinc-900 text-zinc-400"
@@ -146,7 +148,7 @@ const MyPlanPage = () => {
 
           <button
             onClick={() => setActiveTab("saved")}
-            className={`rounded-full px-5 py-2 text-sm font-bold ${
+            className={`flex-1 rounded-full px-3 py-2 text-xs font-bold sm:flex-none sm:px-5 sm:text-sm ${
               activeTab === "saved"
                 ? "bg-lime-400 text-black"
                 : "bg-zinc-900 text-zinc-400"
@@ -157,19 +159,20 @@ const MyPlanPage = () => {
         </div>
 
 {/* search & sort */}
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <label className="flex items-center gap-2 rounded-md border border-zinc-700 px-3">
+        {/* Responsive: search and sorting fill the phone width. */}
+        <div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto">
+          <label className="flex w-full items-center gap-2 rounded-md border border-zinc-700 px-3 sm:w-auto">
             <FiSearch className="text-zinc-500" />
             <input
               type="search"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by name or tag"
-              className="h-11 w-full bg-transparent text-sm outline-none sm:w-60"
+              className="h-11 min-w-0 flex-1 bg-transparent text-sm outline-none sm:w-60"
             />
           </label>
 
-          <select value={sortBy} className="h-11 rounded-md border border-zinc-700 bg-black px-4 text-sm"
+          <select value={sortBy} className="h-11 w-full rounded-md border border-zinc-700 bg-black px-4 text-sm sm:w-auto"
                 onChange={(event) =>
                     setSortBy(event.target.value as SortType)
                 }>
@@ -199,8 +202,7 @@ const MyPlanPage = () => {
           })}
         </div>
       ) : (
-        <div className="flex min-h-80 flex-col items-center justify-center text-cente 
-                        border border-zinc-800 rounded-2xl mt-5 bg-[#000a18]">
+        <div className="mt-5 flex min-h-80 flex-col items-center justify-center rounded-2xl border border-zinc-800 bg-[#000a18] px-5 py-10 text-center">
 
             <h2 className="display-title mt-5 text-3xl font-black uppercase">
                 {hasSearch ? "No matches" : "Nothing here yet"}

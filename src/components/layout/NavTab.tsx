@@ -15,15 +15,16 @@ const NavTab = () => {
 
 
     return (
+
         <div className='flex items-center gap-2'>
-            <Link href="/" className={tabFuction(workoutActive)}>
+            <Link href="/#library" className={tabFuction(workoutActive)}>
                 Workouts
             </Link>
 
             <div className='w-22'>
                 <Link href="/my-plan" className={tabFuction(planActive)}>
                     My Plan
-                </Link>            
+                </Link>
             </div>
         </div>
     );

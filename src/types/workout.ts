@@ -16,6 +16,7 @@ export type IWorkout = {
 
 export type AddResult = "added" | "duplicate" | "full";
 export type SaveResult = "saved" | "duplicate";
+
 export interface IWorkoutContextProp {
   plan: IWorkout[];
   saved: IWorkout[];

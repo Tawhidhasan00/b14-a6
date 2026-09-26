@@ -29,19 +29,20 @@ const WorkoutDetailsPage = async({params}: IWorkoutDetailsProp) => {
     }
 
     return (
-        <div className="card card-side bg-base-100 shadow-sm max-w-7xl mx-auto grid grid-cols-2 w-full mt-10 gap-10">
-            <figure className="relative h-162.5 w-full overflow-hidden rounded-2xl">
+        /* Responsive: details stack on smaller screens and split on large screens. */
+        <div className="card mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-8 bg-base-100 px-4 shadow-sm sm:px-6 lg:grid-cols-2 lg:gap-10 lg:px-0">
+            <figure className="relative h-80 w-full overflow-hidden rounded-2xl sm:h-[28rem] lg:h-162.5">
                 <Image
                 src={workout.image}
                 alt={workout.name}
                 fill
                 className="object-cover rounded-2xl" />
             </figure>
-            <div className="space-y-2 ml-7">
-                <h2 className=" text-4xl font-bold ">{workout.name}</h2>
-                <p className=" text-gray-500 text-[15px] w-full h-10">{workout.description}</p>
+            <div className="min-w-0 space-y-2 lg:ml-7">
+                <h2 className="text-3xl font-bold sm:text-4xl">{workout.name}</h2>
+                <p className="w-full text-sm leading-6 text-gray-500 sm:text-[15px] lg:h-10">{workout.description}</p>
 
-                <div className='mt-5 flex gap-3'>
+                <div className='mt-5 flex flex-wrap gap-3'>
                     {
                         workout.muscleGroups.map((mgrp: string) => (
                             <span key={mgrp}
@@ -100,7 +101,8 @@ const WorkoutDetailsPage = async({params}: IWorkoutDetailsProp) => {
                     </ol>
                 </div>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        {/* Responsive: buttons stack on mobile and sit side-by-side on larger screens. */}
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <AddButton workout={workout} />
           <SaveButton workout={workout} />
         </div>

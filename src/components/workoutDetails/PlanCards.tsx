@@ -20,9 +20,10 @@ type Props = {
 
 const PlanCards = ({workout, activeTab, completed,onDone, onRemove}: Props) => {
     return (
-    <article key={workout.id} className="grid gap-5 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 md:grid-cols-[12rem_1fr]" >
 
-        <div className="relative min-h-22 overflow-hidden rounded-xl">
+    <article className="grid grid-cols-1 gap-5 rounded-2xl border border-zinc-800 bg-zinc-950 p-4 md:grid-cols-[12rem_minmax(0,1fr)]" >
+
+        <div className="relative h-48 overflow-hidden rounded-xl md:h-auto md:min-h-22">
             <Image
                 src={workout.image}
                 alt={workout.name}
@@ -30,7 +31,7 @@ const PlanCards = ({workout, activeTab, completed,onDone, onRemove}: Props) => {
                 className="object-cover" />
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex min-w-0 flex-col justify-between lg:flex-row">
             <div>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
@@ -67,17 +68,18 @@ const PlanCards = ({workout, activeTab, completed,onDone, onRemove}: Props) => {
                 </div>
             </div>
 
-            <div className="mt-6 flex gap-3">
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
 
                 <Link href={`/workouts/${workout.id}`}
-                    className="flex items-center gap-2 rounded-md text-white border border-zinc-700 px-4 py-2 text-sm font-bold  h-10"
+                    className="flex h-10 items-center justify-center gap-2 rounded-md border border-zinc-700 px-4 py-2 text-sm font-bold text-white"
                     > View Details <FiArrowRight />
                 </Link>
 
                 {activeTab === "plan" && (
                     <button
                             onClick={() => onDone(workout.id)}
-                            disabled={completed} className="flex items-center gap-2 rounded-md h-10 border bg-lime-400 text-black
+                            disabled={completed} className="flex h-10 items-center justify-center gap-2 rounded-md border bg-lime-400 text-black
                                                             px-4 py-2 text-sm font-bold disabled:text-zinc-800 disabled:bg-lime-700"
                         > <FiCheck />
                             {completed ? "Done" : "Mark as Done"}

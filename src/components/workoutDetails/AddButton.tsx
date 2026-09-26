@@ -36,7 +36,8 @@ const AddButton = ({ workout }: { workout: IWorkout }) => {
     <button
       onClick={handleAdd}
       disabled={alreadyAdded || planIsFull}
-      className="flex items-center justify-center gap-2 rounded-md bg-lime-400 px-6 py-3 font-bold text-black 
+
+      className="flex w-full items-center justify-center gap-2 rounded-md bg-lime-400 px-6 py-3 font-bold text-black sm:w-auto
                   disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-400"
     >
       <CiCalendarDate size={20} />

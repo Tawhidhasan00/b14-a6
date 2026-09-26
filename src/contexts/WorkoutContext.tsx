@@ -6,6 +6,14 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 const workoutContext = createContext<IWorkoutContextProp | null>(null);
 
 
+export const useWorkouts = () => {
+  const context = useContext(workoutContext);
+  if (!context) {
+    throw new Error("useWorkouts must be used inside WorkoutProvider");
+  }
+  return context;
+};
+
 
 const WorkoutProvider = ({children}: {children: ReactNode}) => {
 
@@ -114,20 +122,13 @@ useEffect(() => {
         removeFromSaved,
         markAsDone
     }
-
     return (
-            <workoutContext.Provider value={sharedStates}>
-                {children}
-            </workoutContext.Provider>
+        <workoutContext.Provider value={sharedStates}>
+            {children}
+        </workoutContext.Provider>
     );
 };
 
-export const useWorkouts = () => {
-  const context = useContext(workoutContext);
-  if (!context) {
-    throw new Error("useWorkouts must be used inside WorkoutProvider");
-  }
-  return context;
-};
+
 
 export default WorkoutProvider;

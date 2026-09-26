@@ -26,7 +26,8 @@ const SaveButton = ({ workout }: { workout: IWorkout }) => {
     <button
       onClick={handleSave}
       disabled={alreadySaved}
-      className="flex items-center justify-center gap-2 rounded-md border border-zinc-600 px-6 py-3 font-bold hover:bg-zinc-800 disabled:cursor-not-allowed disabled:text-zinc-500"
+
+      className="flex w-full items-center justify-center gap-2 rounded-md border border-zinc-600 px-6 py-3 font-bold hover:bg-zinc-800 disabled:cursor-not-allowed disabled:text-zinc-500 sm:w-auto"
     >
       <LuBookmark size={20} />
       {alreadySaved ? "Already saved" : "Save for later"}

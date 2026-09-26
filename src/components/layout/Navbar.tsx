@@ -1,9 +1,13 @@
+'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/logo.png'
 import NavTab from './NavTab';
+import { useWorkouts } from '@/contexts/WorkoutContext';
 
 const Navbar = () => {
+
+    const { plan, saved } = useWorkouts();
 
     const links = <>
         <li> <Link href='/workouts'>Workouts</Link> </li>
@@ -11,7 +15,7 @@ const Navbar = () => {
     </>
 
     return (
-        <nav className='bg-base-100 shadow-sm border-b border-b-gray-800 sticky'>
+        <nav className='bg-base-100 shadow-sm border-b border-b-gray-800 sticky top-0 z-50'>
             <div className="navbar max-w-7xl mx-auto">
 
                 <div className="navbar-start">
@@ -29,7 +33,7 @@ const Navbar = () => {
                     <Link href='/'> 
                         <div className='flex items-center gap-1'>
                             <Image src={logo} alt='Logo' className='size-7 ' ></Image>
-                            <button className="btn btn-ghost text-xl">FITLOG</button>
+                            <span className="btn btn-ghost text-xl">FITLOG</span>
                         </div>
                     </Link>
                     
@@ -38,13 +42,15 @@ const Navbar = () => {
                 <NavTab/>
 
                 <div className="navbar-end flex gap-3 ">
-                    <button className="btn rounded-2xl"> Plan 
+                    <Link href='/my-plan' className="btn rounded-2xl"> Plan 
                         <span className='text-[#18240E] bg-[#C2F800] inline-flex items-center justify-center w-6 h-6 rounded-full  '
-                                        > 0 </span>
-                    </button>
-                    <button className="btn rounded-2xl "> Saved 
-                        <span className='border border-gray-400 inline-flex items-center justify-center w-6 h-6 rounded-full'> 0 </span>
-                    </button>
+                            > {plan.length} </span>
+                    </Link>
+                    
+                    <Link href='/my-plan' className="btn rounded-2xl "> Saved 
+                        <span className='border border-gray-400 inline-flex items-center justify-center w-6 h-6 rounded-full'
+                            > {saved.length} </span>
+                    </Link>
                 </div>
                 
             </div>            

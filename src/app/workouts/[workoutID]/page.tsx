@@ -1,7 +1,8 @@
+import AddButton from "@/components/workoutDetails/AddButton";
+import SaveButton from "@/components/workoutDetails/SaveButton";
 import { IWorkout } from "@/types/workout";
 import Image from "next/image";
-import { CiCalendarDate } from "react-icons/ci";
-import { LuBookmark } from "react-icons/lu";
+import { notFound } from "next/navigation";
 
 interface IWorkoutDetailsProp {
     params: Promise<{
@@ -10,20 +11,21 @@ interface IWorkoutDetailsProp {
 }
 
 const getWorkouts = async(): Promise<IWorkout[]> => {
-    const res = await fetch('https://api.abcz.workers.dev/api/fitlog');
+    const res = await fetch('https://api.abcz.workers.dev/api/fitlog', {next: { revalidate: 3600 }});
+    if (!res.ok) {
+        throw new Error("Failed to load workouts");
+    }
     return res.json();
 }
 
 const WorkoutDetailsPage = async({params}: IWorkoutDetailsProp) => {
     const {workoutID} = await params;
     const workouts: IWorkout[] = await getWorkouts();
-    const workout = workouts.find((wk: IWorkout) => wk.id === Number(workoutID));
-    if(!workout) {
-        return (
-            <div>
-                Not Found
-            </div>
-        )
+    const workout = workouts.find(
+        (wk: IWorkout) => wk.id === Number(workoutID)
+    );
+    if (!workout) {
+    notFound();
     }
 
     return (
@@ -39,11 +41,11 @@ const WorkoutDetailsPage = async({params}: IWorkoutDetailsProp) => {
                 <h2 className=" text-4xl font-bold ">{workout.name}</h2>
                 <p className=" text-gray-500 text-[15px] w-full h-10">{workout.description}</p>
 
-                <div className=' flex gap-3'>
+                <div className='mt-5 flex gap-3'>
                     {
                         workout.muscleGroups.map((mgrp: string) => (
                             <span key={mgrp}
-                                className='badge h-5 rounded-2xl py-3 px-4 border-0 bg-lime-400 text-sm font-medium text-zinc-950'>
+                                className='badge h-5 rounded-2xl py-4 px-5 border-0 bg-lime-400 text-sm font-medium text-zinc-950'>
                                 {mgrp}
                             </span>
                         ))
@@ -98,16 +100,10 @@ const WorkoutDetailsPage = async({params}: IWorkoutDetailsProp) => {
                     </ol>
                 </div>
 
-                <div className="flex gap-4 mb-10 mt-5">
-                    <button className="bg-lime-600 text-zinc-800 rounded-md px-6 py-2 font-medium flex items-center gap-1">
-                        <CiCalendarDate/>
-                        <p>Add to todays plan</p>
-                    </button>
-                    <button className="border border-zinc-700 rounded-md px-6 py-2 font-medium flex items-center gap-1">
-                        <LuBookmark/>
-                        <p>Save for later</p>
-                    </button>
-                </div>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <AddButton workout={workout} />
+          <SaveButton workout={workout} />
+        </div>
 
             </div>
         </div>

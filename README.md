@@ -27,5 +27,5 @@ FitLog is a simple workout library and daily exercise planner. Users can browse 
 - Receive toast notifications after important actions
 - Use the application on mobile, tablet, and desktop screens
 
-
+## Live Link: https://b14-a6-omega.vercel.app/
 
